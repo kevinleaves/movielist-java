@@ -7,10 +7,12 @@ import jakarta.persistence.Id;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.RequiredArgsConstructor;
 
 @Entity
 @Getter
 @Setter
+@RequiredArgsConstructor
 public class Movie {
   // movies have id, names, watched
   @Id
