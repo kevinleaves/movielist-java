@@ -27,6 +27,18 @@ public class MovieListController {
     return this.movieRepository.findAll();
   }
 
+  // CHORE: ADD A MOVIE TO LIST
+  // curl -X POST -d "name=The Dark Knight Rises&watched=true" http://localhost:8081/movies/add
+  @PostMapping("/add")
+  public Movie addMovie(@RequestParam String name, @RequestParam Boolean watched) {
+
+    Movie newMovie = new Movie();
+    newMovie.setName(name);
+    newMovie.setWatched(watched);
+    this.movieRepository.save(newMovie);
+    return newMovie;
+  }
+
   // CHORE: GET 1 MOVIE BY ID
 
   // CHORE: TOGGLE MOVIE SEEN
