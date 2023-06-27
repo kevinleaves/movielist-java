@@ -6,6 +6,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
+
+import java.util.Optional;
 
 import movielist.entities.Movie;
 import movielist.repositories.MovieRepository;
@@ -28,7 +34,7 @@ public class MovieListController {
   }
 
   // CHORE: ADD A MOVIE TO LIST
-  // curl -X POST -d "name=The Dark Knight Rises&watched=true" http://localhost:8081/movies/add
+  // curl -X POST -d "name=Inception&watched=true" http://localhost:8081/movies/add
   @PostMapping("/add")
   public Movie addMovie(@RequestParam String name, @RequestParam Boolean watched) {
 
@@ -40,7 +46,18 @@ public class MovieListController {
   }
 
   // CHORE: GET 1 MOVIE BY ID
+  @GetMapping("/{id}")
+  public Movie getMovieById(@PathVariable("id") Long id) {
 
+    // check optional
+    Optional<Movie> optionalMovie = this.movieRepository.findById(id);
+    if (!optionalMovie.isPresent()) {
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Movie not found with ID: " + id);
+    }
+
+    // retrieve from optional & return
+    return optionalMovie.get();
+  }
   // CHORE: TOGGLE MOVIE SEEN
 
   // CHORE: DELETE MOVIE FROM LIST
