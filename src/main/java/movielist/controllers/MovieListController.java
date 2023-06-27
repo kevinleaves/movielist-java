@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 @RequestMapping("/movies")
 public class MovieListController {
   // CHORE: GET ALL MOVIES
-  @GetMapping("/")
 
   // CHORE: GET 1 MOVIE BY ID
 
